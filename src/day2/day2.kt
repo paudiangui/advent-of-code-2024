@@ -45,26 +45,19 @@ fun main() {
 }
 
 fun part1(){
-    val pathPart1 = "${BASE_PATH}day2/day2Part1.txt"
+    val inputFilePathPart1 = "${BASE_PATH}day2/day2Part1.txt"
 
-    val mutableList = splitInputToLists(pathPart1).toMutableList()
+    val result = splitInputToLists(inputFilePathPart1)
+        .filter(::isSortedOrReversed)
+        .size
 
-    mutableList.removeIf {
-        !isShortedOrRevesed(it)
-    }
-
-    val result = mutableList.size
     println(result)
 }
 
-fun isShortedOrRevesed(list: List<Int>): Boolean {
-    // Convertimos a lista de dígitos
+fun isSortedOrReversed(list: List<Int>): Boolean {
+    return list.zipWithNext().all { (a, b) -> a <= b && abs(a - b) in 1..3 } ||
+            list.zipWithNext().all { (a, b) -> a >= b && abs(a - b) in 1..3 }
 
-    return when {
-        list.zipWithNext().all { it.first <= it.second && abs(it.first - it.second) in 1..3} -> true
-        list.zipWithNext().all { it.first >= it.second && abs(it.first - it.second) in 1..3} -> true
-        else -> false
-    }
 }
 
 fun splitInputToLists(filePath: String): List<List<Int>> {
