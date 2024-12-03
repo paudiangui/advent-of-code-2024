@@ -46,21 +46,17 @@ Your actual left and right lists contain many location IDs. What is the total di
 fun main() {
     val pathPart1 = "${BASE_PATH}day1/day1Part1.txt"
     val pathPart2 = "${BASE_PATH}day1/day1Part2.txt"
-    resultPart1(pathPart1)
-    resultPart2(pathPart2)
+
+    try {
+        println("Result Part 1: ${calculateResult(pathPart1, ::calculateSortedDistanceDifferences)}")
+        println("Result Part 2: ${calculateResult(pathPart2, ::calculateSortedDistanceProduct)}")
+    } catch (e: Exception) {
+        println("Error: ${e.message}")
+    }
 }
 
-fun resultPart1(path:String){
-    val listDistDiff = calculateSortedDistanceDifferences(path)
-    val resultPart1 = listDistDiff
-    println("resultPart1: $resultPart1")
-}
-
-fun resultPart2(path: String){
-    val listDistProd = calculateSortedDistanceProduct(path)
-    val resultPart2 = listDistProd
-    println("resultPart2: ${resultPart2}")
-
+fun calculateResult(path: String, calculation: (String) -> Any): Any {
+    return calculation(path)
 }
 
 fun calculateSortedDistanceDifferences(inputPath: String): Int{
