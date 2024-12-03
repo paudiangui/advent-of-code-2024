@@ -42,6 +42,7 @@ Analyze the unusual data from the engineers. How many reports are safe?
 
 fun main() {
     part1()
+    part2()
 }
 
 fun part1(){
@@ -51,13 +52,40 @@ fun part1(){
         .filter(::isSortedOrReversed)
         .size
 
-    println(result)
+    println("part1: $result")
 }
 
 fun isSortedOrReversed(list: List<Int>): Boolean {
     return list.zipWithNext().all { (a, b) -> a <= b && abs(a - b) in 1..3 } ||
             list.zipWithNext().all { (a, b) -> a >= b && abs(a - b) in 1..3 }
 
+}
+
+fun part2(){
+    val inputFilePathPart2 = "${BASE_PATH}day2/day2Part1.txt"
+
+    val reports = splitInputToLists(inputFilePathPart2)
+
+    val result = splitInputToLists(inputFilePathPart2)
+        .filter(::isSafeReport)
+        .size
+
+    println("part2: $result")
+}
+
+fun isSafeReport(list: List<Int>): Boolean {
+    if (isSortedOrReversed(list)) {
+        return true
+    }
+
+    for (i in list.indices) {
+        val modifiedList = list.toMutableList().apply { removeAt(i) }
+        if (isSortedOrReversed(modifiedList)) {
+            return true
+        }
+    }
+
+    return false
 }
 
 fun splitInputToLists(filePath: String): List<List<Int>> {
