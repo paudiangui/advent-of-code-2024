@@ -46,8 +46,6 @@ fun part2(){
     }
 
     println(sum)
-
-    println(sum)
 }
 
 fun sumMatches(match: MatchResult): Int{
