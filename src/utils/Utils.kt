@@ -15,4 +15,13 @@ object Utils {
             emptyList()
         }
     }
+
+    fun readFileToString(filePath: String): String{
+        return try {
+            File(filePath).readText()
+        }catch (e: Exception){
+            println("Error al leer el archivo: ${e.message}")
+            ""
+        }
+    }
 }
