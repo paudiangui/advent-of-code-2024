@@ -64,8 +64,6 @@ fun isSortedOrReversed(list: List<Int>): Boolean {
 fun part2(){
     val inputFilePathPart2 = "${BASE_PATH}day2/day2Part1.txt"
 
-    val reports = splitInputToLists(inputFilePathPart2)
-
     val result = splitInputToLists(inputFilePathPart2)
         .filter(::isSafeReport)
         .size
